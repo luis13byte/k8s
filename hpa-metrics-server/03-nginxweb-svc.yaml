@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxweb
+spec:
+  type: NodePort
+  ports:
+    # Expone el servicio del pod (en este caso web) por este puerto, solo en el cluster (internamente). Otros pods pueden comunicarse con él meiante este puerto.
+  - port: 8080
+    # El puerto al que el servicio envia solicitudes. El pod debe estar escuchando en este puerto.
+    targetPort: 80
+    # Expone el servicio externamente al cluster mediante la direccion IP del worker.
+    nodePort: 30005
+    protocol: TCP
+    name: http
+  # Busca el pod por el nombre de etiqueta
+  selector:
+    role: nginxweb

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+# Nombre y etiquetas que se asignara a este recurso "deployment"
+metadata:
+  name: nginxweb
+  namespace: default
+spec:
+  replicas: 2
+  # Etiqueta para identificar los pods creados en este deployment
+  selector:
+    matchLabels:
+      role: nginxweb
+  # Terminará todos los pods en ejecución y los volverá a crear con la versión más reciente
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      # Etiquetas se van a asignar a este deployment (pods)
+      labels:
+	role: nginxweb
+        app: wordpress
+    spec:
+      containers:
+        - image: nginx:1.20
+          imagePullPolicy: IfNotPresent
+          name: nginx-pod
+          env:
+            - name: NGINX_HOST
+              value: tutorialwp.com
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              name: web-port
+          # El pod solicita (requests) y tiene un limite (limits) de recursos
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

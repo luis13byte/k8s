@@ -17,7 +17,7 @@ spec:
     metadata:
       # Etiquetas se van a asignar a este deployment (pods)
       labels:
-	role: nginxweb
+        role: nginxweb
         app: wordpress
     spec:
       containers:

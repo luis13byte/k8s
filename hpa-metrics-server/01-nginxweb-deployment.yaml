@@ -6,7 +6,7 @@ metadata:
   namespace: default
 spec:
   replicas: 2
-  # Etiqueta para identificar los pods creados en este deployment
+  # Selector apunta y busca los pods por el nombre de la etiqueta especificada, formaran parte del deploy
   selector:
     matchLabels:
       role: nginxweb

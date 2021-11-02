@@ -3,16 +3,16 @@ kind: Deployment
 # Nombre y etiquetas que se asignara a este recurso "deployment"
 metadata:
   name: nginxweb
-  namespace: default
+  namespace: webserver
 spec:
-  replicas: 2
+  replicas: 1
   # Selector apunta y busca los pods por el nombre de la etiqueta especificada, formaran parte del deploy
   selector:
     matchLabels:
       role: nginxweb
   # Terminará todos los pods en ejecución y los volverá a crear con la versión más reciente
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       # Etiquetas se van a asignar a este deployment (pods)
@@ -20,17 +20,29 @@ spec:
         role: nginxweb
         app: wordpress
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10014
+        securityContext:
+          capabilities:
+            drop:
+              - NET_RAW
+        # Los ServieAccountToken son las claves para acceder al clúster, evitamos que se consigan por un ataque al shell del contenedor
+        automountServiceAccountToken: false
       containers:
-        - image: nginx:1.20
-          imagePullPolicy: IfNotPresent
+        - image: nginx@sha256:7250923ba3543110040462388756ef099331822c6172a050b12c7a38361ea46f
+          imagePullPolicy: Always
           name: nginx-pod
           env:
             - name: NGINX_HOST
-              value: tutorialwp.com
+              value: webservice.com
           ports:
             - containerPort: 80
               protocol: TCP
-              name: web-port
+              name: http-port
+            - containerPort: 443
+              protocol: TCP
+              name: https-port
           # El pod solicita (requests) y tiene un limite (limits) de recursos
           resources:
             requests:

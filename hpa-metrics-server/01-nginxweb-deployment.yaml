@@ -23,10 +23,9 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 10014
-        securityContext:
-          capabilities:
-            drop:
-              - NET_RAW
+        capabilities:
+          drop:
+            - NET_RAW
         # Los ServieAccountToken son las claves para acceder al clúster, evitamos que se consigan por un ataque al shell del contenedor
         automountServiceAccountToken: false
       containers:

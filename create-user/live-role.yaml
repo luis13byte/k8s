@@ -4,6 +4,6 @@ metadata:
   namespace: live
   name: permissions-live
 rules:
-  - apiGroups: ["", "extensions", "apps"]
-    resources: ["pods"]
-    verbs: ["get", "list", "port-forward"]
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["pods", "pods/portforward"]
+  verbs: ["get", "list", "create", "port-forward"]

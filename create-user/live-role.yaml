@@ -1,0 +1,9 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: live
+  name: permissions-live
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["pods"]
+    verbs: ["get", "list", "port-forward"]

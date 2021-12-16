@@ -8,3 +8,8 @@ Switch to specific user context, using configuration file.
 ~~~
 kubectl config use-context developer-context --kubeconfig=.kube/config
 ~~~
+
+Decrypt and read the certificate.
+~~~
+openssl x509 -text -noout -in ca-master.crt
+~~~

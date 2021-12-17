@@ -24,5 +24,5 @@ kubectl config set-credentials ${USER} \
   --client-certificate=/home/${USER}/.certs/${USER}.crt \
   --client-key=/home/${USER}/.certs/${USER}.key --embed-certs
 
-kubectl config set-context developer-context \
+kubectl config set-context ${USER}-context \
   --cluster=${CLUSTERNAME} --user=${USER}

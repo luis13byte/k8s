@@ -15,6 +15,9 @@ spec:
       labels:
         app: prometheus-server
     spec:
+      securityContext:
+        fsGroup: 0
+        runAsUser: 0
       containers:
         - name: prometheus
           image: prom/prometheus:latest

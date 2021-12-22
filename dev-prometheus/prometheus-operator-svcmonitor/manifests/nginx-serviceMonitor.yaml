@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: webserver
+  labels:
+    app.kubernetes.io/part-of: kube-prometheus
+    app: webserver
+    env: labs
+    namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      app: webserver
+  endpoints:
+  - port: exporter

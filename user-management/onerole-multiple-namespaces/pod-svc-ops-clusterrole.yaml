@@ -1,0 +1,9 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: pod-svc-ops
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["pods", "pods/portforward", "services", "services/portforward", "pods/log"]
+    verbs: ["get", "list", "create", "port-forward", "logs" , "describe"]

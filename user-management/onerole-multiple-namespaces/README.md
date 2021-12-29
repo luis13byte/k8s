@@ -20,6 +20,11 @@ kubectl config set-credentials developer-sa --token=${TOKEN}
 kubectl config set-context --current --user=developer-sa
 ~~~
 
+### Check service account permissions
+With this command we can check what the serviceaccount can and cannot do.
+~~~
+kubectl auth can-i get pods -n live --as developer-sa
+~~~
 
 ### Disable access to Service Account
 In the future if you want to remove access to the service account cluster, remove the Kubernetes secret containing the authentication token.

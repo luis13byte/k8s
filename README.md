@@ -12,6 +12,6 @@ kubeval manifest.yaml
 
 Show differences for resources in yaml file.
 ~~~
-k diff -f manifest 
+k diff -f manifest.yaml
 ~~~
 https://kubernetes.io/blog/2019/01/14/apiserver-dry-run-and-kubectl-diff/

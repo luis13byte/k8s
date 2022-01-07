@@ -1,11 +1,11 @@
 #!/bin/bash
+DATE$(date +'%Y-%m-%d')
 
-DATE=$()
+# First update cluster.yml with the new kubernetes_version
 
-# SECOND STEP
-# Take snapshot on all etcd hosts
 rke etcd snapshot-save \
   --name snapshot${DATE}.db \
-  --config rancher-cluster.yml
-  
+  --config cluster.yml
+
+rke up --config ./cluster.yml
   

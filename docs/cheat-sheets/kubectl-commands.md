@@ -25,3 +25,8 @@ Decode entire Kubernetes secret.
 ~~~
 kubectl -n default get secret my-secret-name -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
 ~~~
+
+Decode certificate in secret (base64).
+~~~
+kubectl get secret wildcard-hustlegotreal-com -o 'go-template={{index .data "tls.crt"}}' | base64 -d
+~~~

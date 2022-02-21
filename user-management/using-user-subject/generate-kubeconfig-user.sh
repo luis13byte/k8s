@@ -1,15 +1,15 @@
 #!/bin/bash
 
 USER="developer"
-CLUSTERCERTS="/etc/kubernetes/ssl"
+CLUSTERCERTS="/etc/kubernetes/ssl" # Rancher path
 CLUSTERNAME="local"
 
-mkdir /home/$USER && cd /home/${USER} && groupadd ti
+mkdir /root/k8s-ops/user-certs/${USER} ; cd /root/k8s-ops/user-certs/${USER}
 openssl genrsa -out ${USER}.key 2048
 
 openssl req -new -key ${USER}.key \
   -out ${USER}.csr \
-  -subj "/CN=${USER}/O=ti}"
+  -subj "/CN=${USER}/O=IT}"
 
 # Signing csr with the Master CA and key of the cluster
 openssl x509 -req -in ${USER}.csr \
@@ -18,11 +18,9 @@ openssl x509 -req -in ${USER}.csr \
   -CAcreateserial \
   -out ${USER}.crt -days 500
 
-mkdir .certs/ && mv ${USER}.{csr,crt,key} .certs/
-
 kubectl config set-credentials ${USER} \
-  --client-certificate=/home/${USER}/.certs/${USER}.crt \
-  --client-key=/home/${USER}/.certs/${USER}.key --embed-certs
+  --client-certificate=${USER}.crt \
+  --client-key=${USER}.key --embed-certs
 
 kubectl config set-context ${USER}-context \
   --cluster=${CLUSTERNAME} --user=${USER}

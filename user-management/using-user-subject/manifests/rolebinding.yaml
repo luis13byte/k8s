@@ -1,13 +1,13 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: live-rolebinding
-  namespace: live
+  name: USER-rolebinding
+  namespace: NAMESPACE
 subjects:
 - kind: User
-  name: developer
+  name: USER
   apiGroup: ""
 roleRef:
   kind: Role
-  name: permissions-live
+  name: USER-role
   apiGroup: ""

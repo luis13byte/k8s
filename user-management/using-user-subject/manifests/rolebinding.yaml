@@ -5,7 +5,7 @@ metadata:
   namespace: live
 subjects:
 - kind: User
-  name: developer
+  name: user
   apiGroup: ""
 roleRef:
   kind: Role
